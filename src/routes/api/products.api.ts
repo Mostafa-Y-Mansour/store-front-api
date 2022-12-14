@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import { createProduct, getProduct, getProducts, updateProduct, deleteProduct, } from '../../crudOperations/productCrud';
-import authenticate from '../../handlers/authentication';
+import { Router } from "express";
+import { create, show, index, update, deleteProduct } from "../../crudOperations/productCrud";
+import authenticate from "../../handlers/authentication";
 
 const routes = Router();
 
-routes.route('/').get(getProducts).post(authenticate, createProduct);
-routes.route('/:id').get(getProduct).patch(authenticate, updateProduct).delete(authenticate, deleteProduct);
+routes.route("/").get(index).post(authenticate, create);
+routes.route("/:id").get(show).patch(authenticate, update).delete(authenticate, deleteProduct);
 
 export default routes;
