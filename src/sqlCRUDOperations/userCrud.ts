@@ -24,7 +24,7 @@ const create = async (req: express.Request, res: express.Response, next: express
 
 const index = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
-    const users = await User.getAll();
+    const users = await User.index();
     res.json({
       status: "success",
       info: users,
@@ -38,7 +38,7 @@ const index = async (req: express.Request, res: express.Response, next: express.
 const show = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const id: string = req.params.id;
-    const user = await User.getOne("id", req.params.id);
+    const user = await User.show("id", req.params.id);
     if (!user) {
       throw new Error(`this order id:${id} does not exist`);
     }
@@ -55,7 +55,7 @@ const show = async (req: express.Request, res: express.Response, next: express.N
 const update = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const id: string = req.params.id;
   try {
-    const update = await User.updateOne(id, req.body);
+    const update = await User.update(id, req.body);
     if (!update) {
       throw new Error(`this order id:${id} does not exist`);
     }
@@ -76,7 +76,7 @@ const deleteUser = async (
 ) => {
   try {
     const id: string = req.params.id;
-    const deleteUser = await User.deleteOne(req.params.id as unknown as string);
+    const deleteUser = await User.delete(req.params.id as unknown as string);
     if (!deleteUser) {
       throw new Error(`this order id:${id} does not exist`);
     }

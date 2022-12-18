@@ -1,6 +1,6 @@
 import { Router } from "express";
-import login from "../../crudOperations/auth";
-import { create, show, index, update, deleteUser } from "../../crudOperations/userCrud";
+import login from "../../sqlCRUDOperations/auth";
+import { create, show, index, update, deleteUser } from "../../sqlCRUDOperations/userCrud";
 import authenticate from "../../handlers/authentication";
 
 const routes = Router();

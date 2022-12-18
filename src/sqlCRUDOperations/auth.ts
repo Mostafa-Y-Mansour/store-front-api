@@ -8,10 +8,10 @@ const login: RequestHandler = async (req, res, next) => {
     if (!email || !password || email === "" || password === "")
       throw new Error("email or password not valid");
 
-    const user = await User.getOne("email", email);
+    const user = await User.show("email", email);
 
     if (!user) throw new Error("no user exist with this email");
-    const isPassword = await User.comparePassword(password, user.password as string);
+    const isPassword = await User.validatePassword(password, user.password as string);
     if (!isPassword) throw new Error("wrong password please try again");
     const token = User.createJwt({ id: user.id, email });
     res.cookie("token", token, {

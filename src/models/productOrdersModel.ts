@@ -1,6 +1,6 @@
-import db from "../database";
+import database from "../database";
 
-type productOrders = {
+type ProductOrdersModel = {
   id: number;
   name: string;
   price: number;
@@ -9,17 +9,21 @@ type productOrders = {
 
 class AddProductToOrder {
   constructor(public table: string) {}
-  async addProduct(quantity: number, order_id: string, product_id: string): Promise<productOrders> {
+  async addProduct(
+    quantity: number,
+    order_id: string,
+    product_id: string
+  ): Promise<ProductOrdersModel> {
     try {
       const sql: string =
         "INSERT INTO order_products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *";
-      const connection = await db.connect();
+      const connection = await database.connect();
       const result = await connection.query(sql, [quantity, order_id, product_id]);
       const order = result.rows[0];
       connection.release();
       return order;
     } catch (error: unknown) {
-      throw new Error(`Could not add product ${product_id} to order ${order_id}: ${error}`);
+      throw new Error(`Cannot add product ${product_id} to the order ${order_id}: ${error}`);
     }
   }
 }

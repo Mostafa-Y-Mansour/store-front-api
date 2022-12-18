@@ -1,5 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
+
 interface RequestWithUser extends Request {
   user?: {
     id: string;

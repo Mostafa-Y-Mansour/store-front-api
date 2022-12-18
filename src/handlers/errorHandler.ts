@@ -1,14 +1,14 @@
 import express from "express";
 
-const handelError = (
+const error = (
   error: Error,
-  req: express.Request,
+  _req: express.Request,
   res: express.Response,
-  next: express.NextFunction
+  _next: express.NextFunction
 ) => {
   return res.status(401).json({
     message: error.message,
   });
 };
 
-export default handelError;
+export default error;

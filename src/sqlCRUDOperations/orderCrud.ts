@@ -25,7 +25,7 @@ const index: express.RequestHandler = async (
   next: express.NextFunction
 ) => {
   try {
-    const order = await Order.getAll();
+    const order = await Order.index();
     res.json({ status: "success", info: order, msg: "This is all orders" });
   } catch (error: unknown) {
     next(error);
@@ -35,11 +35,11 @@ const index: express.RequestHandler = async (
 const show = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const id = req.params.id;
-    const specificOrder = await Order.getOne("id", req.params.id);
+    const specificOrder = await Order.show("id", req.params.id);
     if (!specificOrder) {
       throw new Error(`this order id:${id} does not exist`);
     }
-    const order = await Order.getOne("id", req.params.id);
+    const order = await Order.show("id", req.params.id);
     res.json({ status: "success", info: order });
   } catch (error: unknown) {
     next(error);
@@ -49,11 +49,11 @@ const show = async (req: express.Request, res: express.Response, next: express.N
 const update = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const id = req.params.id;
-    const updated = await Order.updateOne(id, req.body);
+    const updated = await Order.update(id, req.body);
     if (!updated) {
       throw new Error(`this order id:${id} does not exist`);
     }
-    const update = await Order.updateOne(id, req.body);
+    const update = await Order.update(id, req.body);
     res.json({ status: "success", info: update, msg: "updated" });
   } catch (error: unknown) {
     next(error);
@@ -67,7 +67,7 @@ const deleteOrder = async (
 ) => {
   const id: string = req.params.id;
   try {
-    const deleteOrder = await Order.deleteOne(req.params.id as unknown as string);
+    const deleteOrder = await Order.delete(req.params.id as unknown as string);
     if (!deleteOrder) {
       throw new Error(`this order id:${id} does not exist`);
     }

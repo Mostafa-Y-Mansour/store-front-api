@@ -26,7 +26,7 @@ const index: express.RequestHandler = async (
   next: express.NextFunction
 ) => {
   try {
-    const product = await Product.getAll();
+    const product = await Product.index();
     res.json({
       status: "success",
       info: product,
@@ -40,7 +40,7 @@ const index: express.RequestHandler = async (
 const show = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const id: string = req.params.id;
   try {
-    const product = await Product.getOne("id", req.params.id);
+    const product = await Product.show("id", req.params.id);
     if (!product) {
       throw new Error(`this order id:${id} does not exist`);
     }
@@ -57,7 +57,7 @@ const show = async (req: express.Request, res: express.Response, next: express.N
 const update = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const id: string = req.params.id;
   try {
-    const update = await Product.updateOne(id, req.body);
+    const update = await Product.update(id, req.body);
     if (!update) {
       throw new Error(`This product by id:${id} is not exist to update it`);
     }
@@ -77,7 +77,7 @@ const deleteProduct = async (
   next: express.NextFunction
 ) => {
   try {
-    const deleteProduct = await Product.deleteOne(req.params.id as unknown as string);
+    const deleteProduct = await Product.delete(req.params.id as unknown as string);
     res.json({
       status: "success",
       info: deleteProduct,

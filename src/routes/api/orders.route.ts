@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { create, index, show, update, deleteOrder } from "../../crudOperations/orderCrud";
-import addProduct from "../../crudOperations/orderProductsCrud";
+import { create, index, show, update, deleteOrder } from "../../sqlCRUDOperations/orderCrud";
+import addProduct from "../../sqlCRUDOperations/orderProductsCrud";
 import authenticate from "../../handlers/authentication";
 
 const routes = Router();
@@ -11,5 +11,6 @@ routes
   .get(authenticate, show)
   .patch(authenticate, update)
   .delete(authenticate, deleteOrder);
+
 routes.route("/:id/products").post(authenticate, addProduct);
 export default routes;
