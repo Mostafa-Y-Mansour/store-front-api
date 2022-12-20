@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { create, show, index, update, deleteProduct } from "../../sqlCRUDOperations/productCrud";
-import authenticate from "../../handlers/authentication";
+import authenticate from "../../handlers/authHandler";
 
 const routes = Router();
 
