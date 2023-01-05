@@ -7,7 +7,7 @@
     "dev": "set ENV=dev nodemon -L --watch 'src/**/*.ts' --exec ts-node src/server.ts",
     "build": "npx tsc",
     "start": "npm run build && node dist/server.js",
-    "test": "set ENV=test && db-migrate -e test up && npm run build && jasmine && db-migrate -e test reset",
+    "test": "set ENV=test && db-migrate up && npm run build && jasmine && db-migrate reset",
     "migrate-up": "set ENV=dev && db-migrate up",
     "migrate-down": "set ENV=dev && db-migrate down",
     "migrate-reset": "db-migrate reset",
